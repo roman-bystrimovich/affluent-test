@@ -1,6 +1,19 @@
 class UsersRepository {
     constructor(db) {
+        this.table = 'users';
         this.db = db;
+    }
+
+    async readList() {
+        const query = `
+            SELECT 
+                *
+            FROM ${this.table}
+        `;
+
+        const [rows] = await this.db.query(query);
+
+        return rows;
     }
 
     createMany(usersData) {
@@ -21,7 +34,7 @@ class UsersRepository {
         ])); 
 
         const query = `
-            INSERT INTO users
+            INSERT INTO ${this.table}
                 (service, origin_id, email, first_name, last_name, avatar)
             VALUES ${users.map(user => `(${user.map(() => '?').join(',')})`).join(',')}
             ON DUPLICATE KEY UPDATE

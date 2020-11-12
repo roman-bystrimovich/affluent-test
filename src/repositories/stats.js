@@ -1,6 +1,19 @@
 class StatsRepository {
     constructor(db) {
+        this.table = 'stats';
         this.db = db;
+    }
+
+    async readList() {
+        const query = `
+            SELECT 
+                *
+            FROM ${this.table}
+        `;
+
+        const [rows] = await this.db.query(query);
+
+        return rows;
     }
 
     createMany(statsData) {
@@ -27,7 +40,7 @@ class StatsRepository {
         const vars = stats.map(stat => `(${stat.map(() => '?').join(',')})`).join(',');
 
         const query = `
-            INSERT INTO stats
+            INSERT INTO ${this.table}
                 (date, commissions_total, sales_net, leads_net, clicks, epc, impressions, cr)
             VALUES ${vars}
             ON DUPLICATE KEY UPDATE
