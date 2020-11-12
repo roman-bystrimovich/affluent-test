@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/roman-bystrimovich/affluent-test#readme",
   "dependencies": {
+    "moment": "^2.29.1",
+    "mysql2": "^2.2.5",
     "node-fetch": "^2.6.1",
     "puppeteer": "^5.4.1"
   }

@@ -29,8 +29,11 @@ class AffluNet {
         for (let buttonEnabled = true; buttonEnabled;) {
             const rows = await window.$$('div.page-content-body tbody tr');
 
-            const list = await Promise.all(rows.map(row => row.$$eval('td', columns => columns.map(column => column.innerText))));
-            yield list.map(([ date, comissions_total, sales_net, leads_net, clicks, epc, impressions, cr ]) => ({ date, comissions_total, sales_net, leads_net, clicks, epc, impressions, cr }));
+            const list = await Promise.all(rows.map(row =>
+                row.$$eval('td', columns => columns.map(column => column.innerText))));
+
+            yield list.map(([ date, commissions_total, sales_net, leads_net, clicks, epc, impressions, cr ]) =>
+                ({ date, commissions_total, sales_net, leads_net, clicks, epc, impressions, cr }));
 
             const nextButton = await window.$('ul.pagination li.next a[title=Next]');
             const [nextWrapper] = await nextButton.$x('..');
