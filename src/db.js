@@ -1,14 +1,16 @@
 const mysql = require('mysql2/promise');
 
+const { db } = require('./config');
+
 let pool;
 
 exports.connect = async () => {
     if (!pool) {
         pool = mysql.createPool({
-            host: 'localhost',
-            user: 'root',
-            database: 'affluent',
-            password: 'shumer88',
+            host: db.host,
+            user: db.user,
+            database: db.name,
+            password: db.password,
             waitForConnections: true,
             connectionLimit: 10
         });

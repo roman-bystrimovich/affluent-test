@@ -1,4 +1,6 @@
 const { URL } = require('url');
+
+const { email, password } = require('../config').api.affluNet;
 const BrowserWindow = require('./helpers/browserWindow');
 
 class AffluNet {
@@ -14,16 +16,16 @@ class AffluNet {
         return url.href;
     }
 
-    async * getTables() {
+    async * getTables(startDate = '2020-10-01', endDate = '2020-10-30') {
         const window = await BrowserWindow.getWindow();
 
         await window.goto(this.getUrl('/login'), { waitUntil: 'networkidle0' });
-        await window.type('form.login-form input[name=username]', 'developertest@affluent.io');
-        await window.type('form.login-form input[name=password]', 'SOpcR^37');
+        await window.type('form.login-form input[name=username]', email);
+        await window.type('form.login-form input[name=password]', password);
         await window.click('form.login-form button[type=submit]');
         await window.waitForNavigation({ waitUntil: 'networkidle0' });
 
-        await window.goto(this.getUrl('/list', { type: 'dates', startDate: '2020-10-01', endDate: '2020-10-30' }), { waitUntil: 'networkidle0' });
+        await window.goto(this.getUrl('/list', { type: 'dates', startDate, endDate }), { waitUntil: 'networkidle0' });
         await window.$eval('#launcher', node => node.remove())
 
         for (let buttonEnabled = true; buttonEnabled;) {
