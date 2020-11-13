@@ -1,4 +1,4 @@
-CREATE TABLE `affluent`.`users`  (
+CREATE TABLE `users`  (
     `id` int(10) NOT NULL AUTO_INCREMENT,
     `service` varchar(255) NOT NULL,
     `origin_id` int(10) NOT NULL,

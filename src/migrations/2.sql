@@ -1,4 +1,4 @@
-CREATE TABLE `affluent`.`stats`  (
+CREATE TABLE `stats`  (
     `id` int(10) NOT NULL AUTO_INCREMENT,
     `date` date NOT NULL UNIQUE,
     `commissions_total` float(10, 0) UNSIGNED NULL DEFAULT 0,
